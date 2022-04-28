@@ -1,0 +1,39 @@
+h3, .h3 {
+    font-family: 'Prompt', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 45px;
+    color: $primary-white;
+}
+
+h5, .h5 {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 150%;
+    text-transform: uppercase;
+    color: $primary-white;
+}
+
+
+p, .p {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    opacity: 0.7;
+    color: $primary-white;
+}
+
+.p1 {
+    @extend .p;
+    opacity: 1;
+}
+
+
+  
+
+

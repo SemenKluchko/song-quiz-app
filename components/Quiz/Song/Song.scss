@@ -1,0 +1,92 @@
+.song {
+
+
+
+  &__item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    width: 500px;
+    height: 70px;
+    border-radius: 5px;
+    border: 1px solid #373b62;
+    background-color: transparent;
+    transition: 0.3s ease-in-out;
+  
+    &:hover {
+      background-color: #373b62;
+      border-color: $primary-white;
+      cursor: pointer;
+      .song__title {
+        opacity: 1;
+      }
+      .song__circle {
+        border-color: $primary-white;
+      }
+    
+  }
+}
+    
+  
+    &__circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid #373b62;
+      margin-left: 20px;
+      transition: 0.3s ease-in-out;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    &__title {
+      transition: 0.3s ease-in-out;
+    }
+
+    &__success {
+      .song__item {
+        background-color: #3E6441;
+        border: 1px solid #619A65;
+        &:hover {
+          border-color: #619A65;
+          background-color: #3E6441;
+          .song__circle {
+            border-color: #619A65;
+          }
+        }
+        .song__circle {
+          border-color: #619A65;
+        }
+        .song__title {
+          opacity: 1;
+        }
+      }
+    }
+  
+    &__fail { 
+      .song__item {
+        background-color: #853838;
+        border: 1px solid #B55A5A;
+        &:hover {
+          border-color: #B55A5A;
+          background-color: #853838;
+          .song__circle {
+            border-color: #B55A5A;
+
+          }
+        }
+        .song__circle {
+          border-color: #B55A5A;
+        }
+        .song__title {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+
+ 
+

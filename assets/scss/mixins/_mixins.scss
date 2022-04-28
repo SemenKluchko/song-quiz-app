@@ -1,0 +1,29 @@
+@use 'sass:math';
+
+
+// media max-width
+@mixin max($size) {
+  @if map-has-key($breakpoints-max, $size) {
+    @media (max-width: #{map-get($breakpoints-max, $size)}px) {
+      @content;
+    }
+  } @else {
+    @media (max-width: #{$size}px) {
+      @content;
+    }
+  }
+}
+
+
+// calculating px to vw
+@function px-to-vw($px, $size) {
+    @if map-has-key($breakpoints-min, $size) {
+      @return unquote(
+        (math.div($px, map-get($breakpoints-min, $size)) * 100) + 'vw'
+      );
+    } @else {
+      @return unquote((math.div($px, $size) * 100) + 'vw');
+    }
+  }
+  
+
