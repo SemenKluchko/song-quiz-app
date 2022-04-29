@@ -14,7 +14,7 @@
           </div>
         </header>
         <div class="quiz__container">
-          <progress-bar :filled="filled" :answered="answered" />
+          <progress-bar :filled="filled" :answered="answered" :win="win" />
           <div class="quiz__body">
             <section class="quiz__questions questions">
               <div class="questions__description">
@@ -28,17 +28,13 @@
                   class="questions__background"
                   :src="
                     win
-                      ? 'https://levi9-song-quiz.herokuapp.com/api/' +
-                        getRandomSong.image
+                      ? apiUrl + getRandomSong.image
                       : '/img/player/background.png'
                   "
                   alt="song background image"
                 />
-                <test-player
-                  :audio-list="
-                    'https://levi9-song-quiz.herokuapp.com/api/' +
-                    getRandomSong.audio
-                  "
+                <audio-player
+                  :audio-list="apiUrl + getRandomSong.audio"
                   class="test-player player-short"
                 />
               </div>
@@ -66,19 +62,13 @@
                 <div class="preview__container">
                   <div class="preview__image-box">
                     <img
-                      :src="
-                        'https://levi9-song-quiz.herokuapp.com/api/' +
-                        currentSong.image
-                      "
+                      :src="apiUrl + currentSong.image"
                       class="preview__image"
                       alt="preview image"
                     />
                   </div>
-                  <test-player
-                    :audio-list="
-                      'https://levi9-song-quiz.herokuapp.com/api/' +
-                      currentSong.audio
-                    "
+                  <audio-player
+                    :audio-list="apiUrl + currentSong.audio"
                     class="test-player player-long"
                   />
                 </div>
@@ -104,15 +94,21 @@
           @click.native="getNextGenre"
         />
       </div>
-      <score v-else :win="win" :score="score" @onclick="getNextGenre" />
+      <score v-else :win="win" :score="score" @onclick="tryAgain" />
     </article>
+    <circle-decoration
+      v-for="(el, idx) in new Array(3).fill(null)"
+      :key="idx"
+      :class="`circle${idx + 1}`"
+    />
   </main>
 </template>
 
 <script>
+import CircleDecoration from '@/components/Ui/Decoration/CircleDecoration.vue'
 import Score from '@/components/Quiz/Score/Score.vue'
 import ProgressBar from '@/components/Quiz/ProgressBar/ProgressBar.vue'
-import TestPlayer from '@/components/Quiz/TestPlayer/TestPlayer.vue'
+import AudioPlayer from '@/components/Quiz/AudioPlayer/AudioPlayer.vue'
 import UiButton from '@/components/Ui/Button/UiButton.vue'
 import Song from '@/components/Quiz/Song/Song.vue'
 import AppForm from '@/components/Form/AppForm.vue'
@@ -124,15 +120,15 @@ export default {
     AppLogo,
     Song,
     UiButton,
-    TestPlayer,
+    AudioPlayer,
     ProgressBar,
     Score,
+    CircleDecoration,
   },
   data() {
     return {
       currentSong: null,
       endGame: false,
-      genreId: 2,
       win: false,
       chances: 3,
       score: 0,
@@ -141,6 +137,15 @@ export default {
     }
   },
   computed: {
+    tryAgainGenre() {
+      return this.$store.state.loadedData[0].id
+    },
+    genreId() {
+      return this.$store.state.genre.id
+    },
+    apiUrl() {
+      return process.env.baseUrl
+    },
     user() {
       return this.$store.state.user
     },
@@ -154,7 +159,7 @@ export default {
       return this.$store.getters.getGenre
     },
     buttonText() {
-      return this.genreId === 5 ? 'See My Score' : 'Next question'
+      return this.genreId === 4 ? 'See My Score' : 'Next question'
     },
   },
   methods: {
@@ -164,25 +169,34 @@ export default {
       if (song.id === this.getRandomSong.id) {
         this.win = true
         this.score += this.chances
-        this.answered = (this.genreId - 1 / 4) * 90 + '%'
+        if (this.genreId === 1) {
+          this.answered = (this.genreId / 2) * 200 + '%'
+        } else {
+          this.answered = (this.genreId / 2) * 250 + '%'
+        }
       } else {
         this.chances--
       }
     },
     getNextGenre() {
-      if (this.endGame) {
-        this.endGame = false
-        this.score = 0
-      } else {
-        this.filled = (this.genreId - 1 / 4) * 150 + '%'
-      }
-      if (this.genreId === 5) {
+      if (this.genreId === 4) {
         this.endGame = true
-        this.genreId = 1
         return
       }
-      this.$store.commit('SET_GENRE', this.genreId + '')
-      this.genreId++
+      this.filled = (this.genreId / 2) * 400 + '%'
+      if (this.genreId === 3) {
+        this.filled = (this.genreId / 2) * 700 + '%'
+      }
+      this.$store.commit('SET_GENRE', this.genreId + 1)
+      this.resetData()
+    },
+    tryAgain() {
+      this.endGame = false
+      this.score = 0
+      this.$store.commit('SET_GENRE', this.tryAgainGenre)
+      this.resetData()
+    },
+    resetData() {
       this.win = false
       this.chances = 3
       this.currentSong = null
@@ -191,6 +205,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.main {
+  position: relative;
+}
 .quiz {
   display: flex;
   justify-content: center;

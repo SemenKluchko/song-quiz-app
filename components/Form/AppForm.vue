@@ -36,10 +36,15 @@ export default {
       placeholder: 'type your name here...',
     }
   },
+  computed: {
+    genreId() {
+      return this.$store.state.loadedData[0].id
+    },
+  },
   methods: {
     onSubmit() {
       this.$store.commit('SET_USER', this.name)
-      this.$store.commit('SET_GENRE', '1')
+      this.$store.commit('SET_GENRE', this.genreId)
     },
   },
 }

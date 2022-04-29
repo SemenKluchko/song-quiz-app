@@ -20,12 +20,15 @@ export const mutations = {
 
 export const actions = {
     async nuxtServerInit({ commit }, context) {
-        await this.$axios.get('https://levi9-song-quiz.herokuapp.com/api/data')
+        await this.$axios.get(process.env.baseUrl + 'data')
             .then(response => {
-                return response.data;
-            })
-            .then(data => {
-                commit('SET_DATA', data);
+                const mapped = response.data.map((el) => {
+                    return {
+                        ...el,
+                        id: +el.id,
+                    }
+                })
+                commit('SET_DATA', mapped);
             })
             .catch(e => context.error(e));
     },

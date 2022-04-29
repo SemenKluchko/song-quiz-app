@@ -56,4 +56,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+  env: {
+    baseUrl: process.env.BASE_URL || 'https://levi9-song-quiz.herokuapp.com/api/'
+  }
 }

@@ -1,0 +1,137 @@
+.circle-decor {
+    z-index: -1;
+    width: 933px;
+    height: 962px;
+    border-radius: 30% 50% 20% 40%;
+    opacity: 0.7;
+    position: absolute;
+    filter: blur(226px);
+
+    @include max(lg) {
+        filter: blur(106px);
+        width: 600px;
+        height: 600px;
+    }
+
+    @include max(sm) {
+        width: 300px;
+        height: 300px;
+        filter: blur(50px);
+    }
+
+    @keyframes transform {
+
+        0%,
+        100% {
+            border-radius: 33% 67% 70% 30% / 30% 30% 70% 70%;
+        }
+
+        20% {
+            border-radius: 37% 63% 51% 49% / 37% 65% 35% 63%;
+        }
+
+        40% {
+            border-radius: 36% 64% 64% 36% / 64% 48% 52% 36%;
+        }
+
+        60% {
+            border-radius: 37% 63% 51% 49% / 30% 30% 70% 70%;
+        }
+
+        80% {
+            border-radius: 40% 60% 42% 58% / 41% 51% 49% 59%;
+        }
+    }
+
+    @keyframes movement_one {
+
+        0%,
+        100% {
+            transform: none;
+        }
+
+        50% {
+            transform: translate(50%, 10%) rotateY(10deg) scale(1.5);
+        }
+    }
+
+    @keyframes movement_two {
+
+        0%,
+        500% {
+            transform: none;
+        }
+
+        70% {
+            transform: translate(0%, 50%) rotate(-200deg) scale(1.1);
+        }
+    }
+
+    @keyframes movement_three {
+
+        0%,
+        500% {
+            transform: none;
+        }
+
+        70% {
+            transform: translate(30%, 40%) rotate(-200deg) scale(1.1);
+        }
+    }
+
+
+}
+
+.circle1 {
+    background: radial-gradient(32.48% 31.5% at 50% 50%,
+            #f54b4b 0%,
+            rgba(255, 69, 69, 0) 100%);
+    animation: transform 20s ease-in-out infinite both alternate,
+        movement_one 40s ease-in-out infinite both;
+    left: -440px;
+    top: -183px;
+
+    @include max(lg) {
+        left: -240px;
+        top: -183px;
+    }
+
+    @include max(sm) {
+        left: -100px;
+        top: -83px;
+    }
+}
+
+.circle2 {
+    background: radial-gradient(32.48% 31.5% at 50% 50%,
+            #f2f54b 0%,
+            rgba(255, 236, 69, 0) 100%);
+    animation: transform 20s ease-in-out infinite both alternate,
+        movement_two 20s ease-in-out infinite both;
+    right: 30px;
+    top: -300px;
+
+    @include max(lg) {
+        right: 30px;
+        top: -200px;
+    }
+
+    @include max(sm) {
+        top: 400px;
+    }
+}
+
+.circle3 {
+    background: radial-gradient(32.48% 31.5% at 50% 50%,
+            #4baef5 0%,
+            rgba(69, 166, 255, 0) 100%);
+    animation: transform 20s ease-in-out infinite both alternate,
+        movement_three 20s ease-in-out infinite both;
+    left: 99px;
+    bottom: -400px;
+
+    @include max(lg) {
+        left: 99px;
+        bottom: -50px;
+    }
+}

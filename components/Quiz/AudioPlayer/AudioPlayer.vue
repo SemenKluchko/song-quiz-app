@@ -4,10 +4,10 @@
       <div
         v-if="!isPlaying && showPlayButton"
         class="audio__play-start"
-        @click.stop="play"
         :style="{
           color: themeColor,
         }"
+        @click.stop="play"
       >
         <slot name="play-start">
           <img src="/img/player/play.svg" alt="play button" />
@@ -17,10 +17,10 @@
       <div
         v-else
         class="audio__play-pause"
-        @click.stop="pause"
         :style="{
           color: themeColor,
         }"
+        @click.stop="pause"
       >
         <slot name="play-pause">
           <div class="pause-btn"></div>
@@ -202,10 +202,24 @@ export default {
       return this.duration ? this.formatTime(this.duration) : '00:00'
     },
   },
+  watch: {
+    audioList() {
+      this.$nextTick(() => {
+        this.timer = null
+        this.isPlaying = false
+        this.$refs.audio.pause()
+        this.currentTime = ''
+        this.clearTimer()
+      })
+    },
+    deep: true,
+    immediate: true,
+  },
   mounted() {
     this.at = new Core(this.$el, { preventDefault: false })
     this.at.use(Pan)
   },
+
   beforeUnmount() {
     this.at.destroy()
     this.pause()
@@ -473,19 +487,6 @@ export default {
       handleNext()
     },
   },
-  watch: {
-    audioList() {
-      this.$nextTick(() => {
-        this.timer = null
-        this.isPlaying = false
-        this.$refs.audio.pause()
-        this.currentTime = ''
-        this.clearTimer()
-      })
-    },
-    deep: true,
-    immediate: true,
-  },
 }
 </script>
 
@@ -713,14 +714,7 @@ export default {
   color: #ffffff;
   opacity: 0.7;
 }
-/* .audio-player .audio__current-time {
-  font-size: 10px;
-  color: #888;
-}
-.audio-player .audio__duration {
-  font-size: 10px;
-  color: #888;
-} */
+
 .audio-player .audio-player__audio {
   display: block;
   margin: 0 auto;
