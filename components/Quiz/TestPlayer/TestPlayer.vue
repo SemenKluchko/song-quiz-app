@@ -215,7 +215,8 @@ export default {
       this.isShowVolume = !this.isShowVolume
     },
     handleVolumePanmove(event) {
-      const playVolumeWrapRect = this.$refs.playVolumeWrap.getBoundingClientRect()
+      const playVolumeWrapRect =
+        this.$refs.playVolumeWrap.getBoundingClientRect()
       const pageY = event.y
       let volume
       const offsetTop = Math.round(playVolumeWrapRect.bottom - pageY)
@@ -475,11 +476,11 @@ export default {
   watch: {
     audioList() {
       this.$nextTick(() => {
-        this.clearTimer()
-        this.timer = window.setInterval(this.playing, this.progressInterval)
+        this.timer = null
         this.isPlaying = false
         this.$refs.audio.pause()
         this.currentTime = ''
+        this.clearTimer()
       })
     },
     deep: true,

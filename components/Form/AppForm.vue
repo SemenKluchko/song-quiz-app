@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import UiButton from '../Ui/Button/UiButton.vue'
+import UiButton from '@/components/Ui/Button/UiButton.vue'
 export default {
   name: 'AppForm',
   components: { UiButton },

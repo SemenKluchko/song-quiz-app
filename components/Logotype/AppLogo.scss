@@ -1,0 +1,14 @@
+.logo {
+    position: fixed;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    @include max(bg) {
+        top: 60px;
+    }
+
+    @include max(md) {
+        top: 40px;
+    }
+}

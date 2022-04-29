@@ -1,8 +1,8 @@
 .button {
     width: 165.78px;
     height: 64px;
-    background-image:  linear-gradient(90deg, #7E55B3 -0.37%, #A769C4 100.37%),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+    background-image: linear-gradient(90deg, #7E55B3 -0.37%, #A769C4 100.37%),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
     border-radius: 5px;
     text-transform: uppercase;
     background-size: 200%;
@@ -19,9 +19,15 @@
     &:hover {
         background-position: left;
     }
+
     &:disabled,
     [disabled] {
         background: linear-gradient(90deg, #808080 -0.37%, #656565 100.37%);
         cursor: not-allowed;
+    }
+
+    @include max(bg) {
+        width: 150.78px;
+        height: 48px;
     }
 }

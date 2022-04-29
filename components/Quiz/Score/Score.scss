@@ -1,0 +1,72 @@
+.score {
+    &__container {
+        width: 1100px;
+        height: 353px;
+        background-color: $form-background;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        border-radius: 10px;
+
+        @include max(lg) {
+            width: 900px;
+        }
+
+        @include max(bg) {
+            width: 750px;
+        }
+
+        @include max(md) {
+            width: 600px;
+            height: 400px;
+        }
+
+        @include max(xs) {
+            width: 300px;
+            height: 300px;
+            padding: 5px;
+            text-align: center;
+        }
+    }
+
+    &__numbers {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -93px);
+        width: 141px;
+        height: 141px;
+        border-radius: 50%;
+        background-color: #373b62;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Arial';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 48px;
+        line-height: 150%;
+    }
+
+    &__text {
+        margin-top: 10px;
+    }
+
+    &__background-img {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -182px);
+        z-index: -1;
+
+        @include max(xs) {
+            transform: translate(-50%, -176px);
+        }
+    }
+
+    &__btn {
+        margin-top: 30px;
+    }
+}
