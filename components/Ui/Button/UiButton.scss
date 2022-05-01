@@ -14,6 +14,10 @@
 
     &__text {
         margin-right: 10px;
+
+        @include max(bg) {
+            margin-right: unset;
+        }
     }
 
     &:hover {

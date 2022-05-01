@@ -27,7 +27,7 @@
         }
 
         @include max(bg) {
-            gap: 107px;
+            gap: 80px;
             padding: 0 45px;
         }
 
@@ -37,15 +37,7 @@
         }
 
         @include max(xs) {
-            gap: 40px;
-        }
-
-        @include max(475) {
-            gap: 25px;
-        }
-
-        @include max(375) {
-            gap: 5px;
+            gap: 13px;
         }
     }
 
